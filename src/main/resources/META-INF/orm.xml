@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.2">
+
+    <named-native-query name="Comment.findByNickname"
+                        result-class="kr.buttercorp.firstproject.entity.Comment">
+        <query>
+            <![CDATA[
+                SELECT
+                    *
+                FROM
+                    comment
+                WHERE
+                    nickname = :nickname
+            ]]>
+        </query>
+    </named-native-query>
+</entity-mappings>
