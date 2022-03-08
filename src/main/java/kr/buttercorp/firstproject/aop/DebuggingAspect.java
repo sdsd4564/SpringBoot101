@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class DebuggingAspect {
 
     // 대상 메소드 선택
-    @Pointcut("execution(* kr.buttercorp.firstproject.service.CommentService.*(..))")
+    @Pointcut("execution(* kr.buttercorp.firstproject.api.*.*(..))")
     private void cut() {
     }
 
