@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BurgerTest {
     @Test
-    public void javaObectToJson() throws JsonProcessingException {
+    public void javaObjectToJson() throws JsonProcessingException {
         //준비
         ObjectMapper mapper = new ObjectMapper();
         List<String> ingredients = Arrays.asList("통새우 패티", "순쇠고기 패티", "토마토");
@@ -38,7 +38,7 @@ class BurgerTest {
         ObjectMapper mapper = new ObjectMapper();
         /*
         {
-            "name": "맥도널드 슈비버거",
+            "name": "맥도날드 슈비버거",
             "price": 5500,
             "ingredients": ["통새우 패티","순쇠고기 패티","토마토"]
         }
