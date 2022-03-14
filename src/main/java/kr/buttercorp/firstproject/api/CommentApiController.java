@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
@@ -33,6 +37,21 @@ public class CommentApiController {
         CommentDto commentDto = commentService.create(articleId, dto);
 
         return ResponseEntity.status(HttpStatus.OK).body(commentDto);
+    }
+
+    @PostMapping("/api/comments/{id}/upload")
+    public ResponseEntity<String> upload(@PathVariable Long id, MultipartFile file) throws IOException {
+        log.info("comments id: {}", id);
+        if (!file.isEmpty()) {
+            File newFile = new File(file.getOriginalFilename());
+            log.info(newFile.toString());
+            log.info(newFile.getAbsolutePath());
+            log.info(newFile.toURI().toString());
+//            file.transferTo(newFile);
+            file.transferTo(Paths.get("comments", id.toString(), file.getOriginalFilename()).toFile());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     // 댓글 수정
