@@ -1,49 +1,64 @@
 <div class="card m-2" id="comments-new">
-    <div class="card-body">
-        <!--    댓글작성폼    -->
-        <form>
-            <div class="mb-3">
-                <label class="form-label">닉네임</label>
-                <input class="form-control form-control-sm" id="new-comment-nickname">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">댓글 내용</label>
-                <textarea class="form-control form-control-sm" id="new-comment-body" rows="3"></textarea>
-            </div>
+  <div class="card-body">
+    <!--    댓글작성폼    -->
+    <form>
+      <div class="mb-3">
+        <label class="form-label">닉네임</label>
+        <input class="form-control form-control-sm" id="new-comment-nickname">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">댓글 내용</label>
+        <textarea class="form-control form-control-sm" id="new-comment-body" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">파일 첨부</label>
+        <input class="form-control" type="file" id="new-comment-attached">
+      </div>
 
-            {{#article}}
-                <input type="hidden" id="new-comment-article-id" value="{{id}}"/>
-            {{/article}}
+      {{#article}}
+        <input type="hidden" id="new-comment-article-id" value="{{id}}"/>
+      {{/article}}
 
-            <button type="button" class="btn btn-outline-primary btn-sm" id="comment-create-btn">댓글 작성</button>
-        </form>
-    </div>
+      <button type="button" class="btn btn-outline-primary btn-sm" id="comment-create-btn">댓글 작성</button>
+    </form>
+  </div>
 </div>
 
 <script>
-    {
-        const commentCreateBtn = document.querySelector("#comment-create-btn");
-        commentCreateBtn.addEventListener("click", () => {
-            const comment = {
-                nickname: document.querySelector("#new-comment-nickname").value,
-                body: document.querySelector("#new-comment-body").value,
-                article_id: document.querySelector("#new-comment-article-id").value
-            };
+  {
+    const commentCreateBtn = document.querySelector("#comment-create-btn");
+    commentCreateBtn.addEventListener("click", () => {
+      // const comment = {
+      //   nickname: document.querySelector("#new-comment-nickname").value,
+      //   body: document.querySelector("#new-comment-body").value,
+      //   article_id: document.querySelector("#new-comment-article-id").value,
+      // };
 
-            const url = "/api/articles/" + comment.article_id + "/comments";
-            fetch(url, {
-                method: "POST",
-                body: JSON.stringify(comment),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).then(res => {
-                // http 응답코드에 따른 메세지 출력
-                const msg = (res.ok) ? "댓글이 등록되었습니다" : "댓글 등록 실패!";
-                alert(msg);
+      const fileAttached = document.querySelector("#new-comment-attached").files;
+      const articleId = document.querySelector("#new-comment-article-id").value;
+      const form = new FormData();
 
-                window.location.reload();
-            });
-        });
-    }
+      form.append('nickname', document.querySelector("#new-comment-nickname").value);
+      form.append('body', document.querySelector("#new-comment-body").value);
+      form.append('article_id', articleId);
+      form.append('attached', fileAttached[0]);
+
+      const url = "/api/articles/" + articleId + "/comments";
+      fetch(url, {
+        method: "POST",
+        body: form,
+        // body: JSON.stringify(comment),
+        // headers: {
+        // "Content-Type": "application/json"
+        // "Content-Type": "multipart/form-data"
+        // }
+      }).then(res => {
+        // http 응답코드에 따른 메세지 출력
+        const msg = (res.ok) ? "댓글이 등록되었습니다" : "댓글 등록 실패!";
+        alert(msg);
+
+        window.location.reload();
+      });
+    });
+  }
 </script>

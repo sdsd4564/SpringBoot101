@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -29,13 +30,16 @@ public class Comment {
     @Column
     private String body;
 
+    @Column
+    private String attached;
+
     public static Comment createComment(CommentDto dto, Article article) {
         if (dto.getId() != null)
             throw new IllegalArgumentException("댓글 생성 실패! 댓글의 ID는 자동으로 생성됨!");
         if (dto.getArticleId() != article.getId())
             throw new IllegalArgumentException("댓글 생성 실패! 게시글의 ID가 서로 다름!");
 
-        return new Comment(dto.getId(), article, dto.getNickname(), dto.getBody());
+        return new Comment(dto.getId(), article, dto.getNickname(), dto.getBody(), dto.getAttached());
     }
 
     public void patch(CommentDto dto) {
@@ -48,5 +52,7 @@ public class Comment {
             nickname = dto.getNickname();
         if (dto.getBody() != null)
             body = dto.getBody();
+        if (dto.getAttached() != null)
+            attached = dto.getAttached();
     }
 }
