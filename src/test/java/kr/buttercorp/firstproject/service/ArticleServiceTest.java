@@ -3,7 +3,6 @@ package kr.buttercorp.firstproject.service;
 import kr.buttercorp.firstproject.dto.ArticleForm;
 import kr.buttercorp.firstproject.entity.Article;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -16,8 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ArticleServiceTest {
 
-    @Autowired
     ArticleService articleService;
+
+    public ArticleServiceTest(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     @Test
     void indexAll() {

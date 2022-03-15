@@ -18,13 +18,15 @@ public class CommentDto {
     private Long articleId;
     private String nickname;
     private String body;
+    private String attached;
 
     public static CommentDto createCommentDto(Comment cmt) {
         return new CommentDto(
                 cmt.getId(),
                 cmt.getArticle().getId(),
                 cmt.getNickname(),
-                cmt.getBody()
+                cmt.getBody(),
+                cmt.getAttached()
         );
     }
 }

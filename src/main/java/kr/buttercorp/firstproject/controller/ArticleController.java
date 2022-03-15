@@ -5,8 +5,8 @@ import kr.buttercorp.firstproject.dto.CommentDto;
 import kr.buttercorp.firstproject.entity.Article;
 import kr.buttercorp.firstproject.repository.ArticleRepository;
 import kr.buttercorp.firstproject.service.CommentService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +18,10 @@ import java.util.List;
 
 @Controller
 @Slf4j // 로깅 어노테이션
+@AllArgsConstructor
 public class ArticleController {
-
-    @Autowired // Springboot가 생성해놓은 객체를 자동 연결
-    private ArticleRepository articleRepository;
-
-    @Autowired
-    private CommentService commentService;
+    private final ArticleRepository articleRepository;
+    private final CommentService commentService;
 
     @GetMapping("/articles/new")
     public String newArticleForm() {

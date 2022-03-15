@@ -4,7 +4,6 @@ import kr.buttercorp.firstproject.dto.ArticleForm;
 import kr.buttercorp.firstproject.entity.Article;
 import kr.buttercorp.firstproject.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,11 @@ import java.util.List;
 @Slf4j
 @RestController
 public class ArticleApiController {
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
+
+    public ArticleApiController(ArticleService articleService) {
+        this.articleService = articleService;
+    }
 
     // GET
     @GetMapping("/api/articles")

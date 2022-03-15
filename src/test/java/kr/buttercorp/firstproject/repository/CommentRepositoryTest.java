@@ -16,8 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DataJpaTest // JPA 연동 테스트
 class CommentRepositoryTest {
 
-    @Autowired
     CommentRepository commentRepository;
+
+    public CommentRepositoryTest(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     @Test
     @DisplayName("특정 게시글 모든 댓글 조회")
@@ -33,9 +36,9 @@ class CommentRepositoryTest {
             // 예상
             // 'Item3', 'Item-Content3');
             Article article = new Article(3L, "Item3", "Item-Content3");
-            Comment c1 = new Comment(4L, article, "닉네임1", "코멘트 19");
-            Comment c2 = new Comment(5L, article, "닉네임3", "코멘트 128");
-            Comment c3 = new Comment(6L, article, "닉네임4", "코멘트 311");
+            Comment c1 = new Comment(4L, article, "닉네임1", "코멘트 19", null);
+            Comment c2 = new Comment(5L, article, "닉네임3", "코멘트 128", null);
+            Comment c3 = new Comment(6L, article, "닉네임4", "코멘트 311", null);
             List<Comment> expected = Arrays.asList(c1, c2, c3);
 
             // 검증
@@ -54,7 +57,7 @@ class CommentRepositoryTest {
             // 'Item3', 'Item-Content3');
             Article article = new Article(1L, "Item1", "Item-Content1");
             //INSERT INTO comment(id, article_id, nickname, body) VALUES (1, 1, '닉네임1', '코멘트 1');
-            Comment c1 = new Comment(1L, article, "닉네임1", "코멘트 1");
+            Comment c1 = new Comment(1L, article, "닉네임1", "코멘트 1", null);
             List<Comment> expected = Collections.singletonList(c1);
 
             // 검증
@@ -76,8 +79,8 @@ class CommentRepositoryTest {
             // 예상
             Article article1 = new Article(1L, "Item1", "Item-Content1");
             Article article3 = new Article(3L, "Item3", "Item-Content3");
-            Comment c1 = new Comment(1L, article1, "닉네임1", "코멘트 1");
-            Comment c3 = new Comment(4L, article3, "닉네임1", "코멘트 19");
+            Comment c1 = new Comment(1L, article1, "닉네임1", "코멘트 1", null);
+            Comment c3 = new Comment(4L, article3, "닉네임1", "코멘트 19", null);
             List<Comment> expected = Arrays.asList(c1, c3);
 
             // 검증

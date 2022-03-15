@@ -1,18 +1,19 @@
 package kr.buttercorp.firstproject.ioc;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ChefTest {
-    @Autowired
-    private IngredientFactory ingredientFactory;
+    private final IngredientFactory ingredientFactory;
+    private final Chef chef;
 
-    @Autowired
-    private Chef chef;
+    public ChefTest(IngredientFactory ingredientFactory, Chef chef) {
+        this.ingredientFactory = ingredientFactory;
+        this.chef = chef;
+    }
 
     @Test
     void CookDoncas() {
